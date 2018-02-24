@@ -72,13 +72,19 @@ contract Betting {
     
     /* Allow anyone to check the outcomes they can bet on */
     function checkOutcomes(uint outcome) public view returns (uint) {
+        return outcomes[outcome];
     }
     
     /* Allow anyone to check if they won any bets */
     function checkWinnings() public view returns(uint) {
+        return winnings[msg.sender];
     }
 
     /* Call delete() to reset certain state variables. Which ones? That's upto you to decide */
     function contractReset() public ownerOnly() {
+        delete owner;
+        delete gamblerA;
+        delete gamblerB;
+        delete oracle;
     }
 }
