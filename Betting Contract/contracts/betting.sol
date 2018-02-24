@@ -62,13 +62,18 @@ contract Betting {
     /* Gamblers place their bets, preferably after calling checkOutcomes */
     function makeBet(uint _outcome) public payable returns (bool) {
         require(gamblerA == address(0) || gamblerB == address(0));
-        if (gamblerA == 0 && gamblerB == 0) {
-            bets[msg.sender] = Bet({
-                    outcome : _outcome,
-                    amount : msg.value,
-                    initialized : true
-            });
+        bets[msg.sender] = Bet({
+            outcome : _outcome,
+            amount : msg.value,
+            initialized : true
+        });
+        if (gamblerA == address(0) && gamblerB == address(0)) {
             BetMade(msg.sender);
+            gamblerA = msg.sender;
+            BetClosed();
+        } else {
+            BetMade(msg.sender);
+            gamblerB = msg.sender;
             BetClosed();
         }
     }
