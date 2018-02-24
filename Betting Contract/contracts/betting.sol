@@ -4,6 +4,10 @@ pragma solidity 0.4.20;
 contract Betting {
     /* Constructor function, where owner and outcomes are set */
     function Betting(uint[] _outcomes) public {
+        owner = msg.sender;
+        for (uint i = 0; i < _outcomes.length; i++) {
+            outcomes[i] = _outcomes[i];
+        }
     }
 
     /* Fallback function */
@@ -36,9 +40,18 @@ contract Betting {
     event BetClosed();
 
     /* Uh Oh, what are these? */
-    modifier ownerOnly() {_;}
-    modifier oracleOnly() {_;}
-    modifier outcomeExists(uint outcome) {_;}
+    modifier ownerOnly() {
+        require(msg.sender == owner);
+        _;
+    }
+    modifier oracleOnly() {
+        require(msg.sender == oracle);
+        _;
+    }
+    modifier outcomeExists(uint outcome) {
+        require(outcomes[outcome] uint(0x0));
+        _;
+    }
 
     /* Owner chooses their trusted Oracle */
     function chooseOracle(address _oracle) public ownerOnly() returns (address) {
