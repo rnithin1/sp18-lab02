@@ -102,10 +102,10 @@ contract Betting {
     /* Allow anyone to withdraw their winnings safely (if they have enough) */
     function withdraw(uint withdrawAmount) public returns (uint) {
         if (withdrawAmount <= winnings[msg.sender]) {
-            msg.sender.transfer(withdrawAmount)
+            msg.sender.transfer(withdrawAmount);
             winnings[msg.sender] -= withdrawAmount;
         }
-        return withdrawAmount;
+        return checkWinnings();
     }
 
     /* Allow anyone to check the outcomes they can bet on */
