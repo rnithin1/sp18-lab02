@@ -56,6 +56,7 @@ contract Betting {
     /* Owner chooses their trusted Oracle */
     function chooseOracle(address _oracle) public ownerOnly() returns (address) {
     	oracle = _oracle;
+        return oracle;
     }
 
     /* Gamblers place their bets, preferably after calling checkOutcomes */
