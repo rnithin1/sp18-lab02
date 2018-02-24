@@ -61,6 +61,16 @@ contract Betting {
 
     /* Gamblers place their bets, preferably after calling checkOutcomes */
     function makeBet(uint _outcome) public payable returns (bool) {
+        require(gamblerA == address(0) || gamblerB == address(0));
+        if (gamblerA == 0 && gamblerB == 0) {
+            bets[msg.sender] = Bet({
+                    outcome : _outcome,
+                    amount : msg.value,
+                    initialized : true
+            });
+            BetMade(msg.sender);
+            BetClosed();
+        }
     }
 
     /* The oracle chooses which outcome wins */
