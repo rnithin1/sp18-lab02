@@ -94,13 +94,14 @@ contract Betting {
             winnings[gamblerB] += (bets[gamblerA].amount +
                                    bets[gamblerB].amount);
         } else {
-            msg.sender.send(bets[gamblerA].amount +
+            msg.sender.transfer(bets[gamblerA].amount +
                             bets[gamblerB].amount);
         }
     }
 
     /* Allow anyone to withdraw their winnings safely (if they have enough) */
     function withdraw(uint withdrawAmount) public returns (uint) {
+        
     }
 
     /* Allow anyone to check the outcomes they can bet on */
